@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#1D9E75"/>
+<meta name="description" content="NearStock — Find products at nearby shops instantly. Search any product and discover the nearest shop that has it in stock."/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="NearStock"/>
+<meta property="og:title" content="NearStock — Find Products Near You"/>
+<meta property="og:description" content="Search any product and find the nearest shop in seconds."/>
+<meta property="og:image" content="assets/og-image.png"/>
+<meta property="og:url" content="https://nearstock.in"/>
+<title>NearStock — Find Products Near You</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png"/>
+<link rel="apple-touch-icon" href="assets/icon-192.png"/>
+<link rel="manifest" href="manifest.json"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+/* ─── RESET & BASE ─────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:#1A1A2E;background:#fff;
+  overflow-x:hidden;line-height:1.6;
+}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.15;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;}
+ul{list-style:none;}
+
+/* ─── SCROLLBAR ────────────────────────────── */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#f0f0f0;}
+::-webkit-scrollbar-thumb{background:#1D9E75;border-radius:3px;}
+
+/* ─── CSS VARIABLES ────────────────────────── */
+:root{
+  --g:#1D9E75;
+  --gd:#085041;
+  --gm:#0F6E56;
+  --gl:#E1F5EE;
+  --gx:rgba(29,158,117,0.12);
+  --w:#fff;
+  --t:#1A1A2E;
+  --m:#6B7280;
+  --b:#E5E7EB;
+  --bg:#F7FFFC;
+  --r:20px;
+  --shadow:0 8px 40px rgba(0,0,0,0.10);
+  --shadow-g:0 8px 40px rgba(29,158,117,0.20);
+}
+
+/* ─── NAV ──────────────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(29,158,117,0.08);
+  transition:box-shadow .3s;
+}
+#nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,0.07);}
+
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{height:38px;width:auto;border-radius:10px;}
+.nav-logo-text{
+  font-family:'Syne',sans-serif;
+  font-size:1.25rem;font-weight:800;
+  color:var(--gd);letter-spacing:-0.3px;
+}
+
+.nav-links{
+  display:flex;align-items:center;gap:2rem;
+}
+.nav-links a{
+  font-size:.9rem;font-weight:500;
+  color:var(--m);transition:color .2s;
+}
+.nav-links a:hover{color:var(--g);}
+
+.nav-btn{
+  background:var(--g);color:#fff!important;
+  padding:.6rem 1.4rem;border-radius:10px;
+  font-weight:600!important;font-size:.88rem!important;
+  transition:background .2s,transform .2s!important;
+  box-shadow:0 4px 16px rgba(29,158,117,0.3);
+}
+.nav-btn:hover{background:var(--gd)!important;transform:translateY(-1px)!important;}
+
+.hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;
+}
+.hamburger span{
+  width:24px;height:2px;background:var(--t);
+  border-radius:2px;display:block;transition:.3s;
+}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+#mobile-menu{
+  display:none;position:fixed;
+  top:68px;left:0;right:0;z-index:998;
+  background:#fff;border-bottom:1px solid var(--b);
+  padding:1.2rem 5%;flex-direction:column;gap:0;
+  box-shadow:0 8px 24px rgba(0,0,0,0.08);
+}
+#mobile-menu.open{display:flex;}
+#mobile-menu a{
+  color:var(--t);font-size:1rem;font-weight:500;
+  padding:1rem 0;border-bottom:1px solid var(--b);
+  transition:color .2s;
+}
+#mobile-menu a:last-child{border-bottom:none;color:var(--g);font-weight:600;}
+#mobile-menu a:hover{color:var(--g);}
+
+/* ─── HERO ─────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(150deg,#1D9E75 0%,#0F6E56 45%,#085041 100%);
+  display:flex;align-items:center;
+  padding-top:68px;position:relative;overflow:hidden;
+}
+
+/* Animated background blobs */
+.hero-blob{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,0.05);
+  animation:blobPulse 6s ease-in-out infinite;
+}
+.hero-blob.b1{width:600px;height:600px;top:-200px;right:-150px;animation-delay:0s;}
+.hero-blob.b2{width:350px;height:350px;bottom:-100px;left:-80px;animation-delay:2s;}
+.hero-blob.b3{width:200px;height:200px;top:40%;left:8%;animation-delay:4s;}
+@keyframes blobPulse{
+  0%,100%{transform:scale(1);opacity:.5;}
+  50%{transform:scale(1.2);opacity:.15;}
+}
+
+/* Dot pattern */
+.hero-dots{
+  position:absolute;top:14%;right:6%;
+  display:grid;grid-template-columns:repeat(7,1fr);gap:14px;
+  opacity:.25;
+}
+.hero-dots span{
+  width:4px;height:4px;background:#fff;
+  border-radius:50%;display:block;
+}
+
+.hero-inner{
+  width:100%;max-width:1200px;margin:0 auto;
+  padding:5rem 5%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+  position:relative;z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);
+  color:#fff;padding:.5rem 1.1rem;border-radius:100px;
+  font-size:.82rem;font-weight:500;margin-bottom:1.5rem;
+}
+
+.hero h1{
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  font-weight:800;color:#fff;line-height:1.1;
+  margin-bottom:1.25rem;
+}
+.hero h1 em{font-style:normal;color:#9FE1CB;}
+
+.hero-sub{
+  font-size:clamp(.95rem,1.5vw,1.1rem);
+  color:rgba(255,255,255,.8);line-height:1.75;
+  margin-bottom:2.2rem;max-width:520px;
+}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+
+.btn-white{
+  background:#fff;color:var(--gd);
+  padding:.85rem 1.8rem;border-radius:12px;
+  font-weight:700;font-size:.95rem;
+  display:inline-flex;align-items:center;gap:.5rem;
+  box-shadow:0 4px 24px rgba(0,0,0,.15);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-white:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.2);}
+
+.btn-glass{
+  background:rgba(255,255,255,.12);color:#fff;
+  padding:.85rem 1.8rem;border-radius:12px;
+  font-weight:600;font-size:.95rem;
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:1px solid rgba(255,255,255,.25);
+  transition:background .2s;
+}
+.btn-glass:hover{background:rgba(255,255,255,.22);}
+
+/* Hero image */
+.hero-visual{
+  display:flex;justify-content:center;align-items:center;
+  position:relative;
+}
+
+.hero-img-wrap{
+  position:relative;
+  animation:heroFloat 5s ease-in-out infinite;
+}
+@keyframes heroFloat{
+  0%,100%{transform:translateY(0) rotate(-1deg);}
+  50%{transform:translateY(-18px) rotate(1deg);}
+}
+
+.hero-glow{
+  position:absolute;inset:-40px;
+  background:radial-gradient(circle,rgba(159,225,203,.3) 0%,transparent 70%);
+  border-radius:50%;z-index:0;
+}
+
+.hero-img-wrap img{
+  width:min(340px,80vw);height:auto;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 20px 60px rgba(0,0,0,.35));
+}
+
+/* Floating chips */
+.chip{
+  position:absolute;
+  background:#fff;border-radius:12px;
+  padding:.55rem 1rem;
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.78rem;font-weight:600;color:var(--t);
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+  z-index:3;white-space:nowrap;
+}
+.chip .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--g);flex-shrink:0;
+  animation:dotBlink 2s infinite;
+}
+@keyframes dotBlink{0%,100%{opacity:1;}50%{opacity:.3;};}
+
+.chip1{top:10%;left:-5%;animation:chipFloat1 4s ease-in-out infinite;}
+.chip2{bottom:15%;right:-5%;animation:chipFloat2 5s ease-in-out infinite;}
+.chip3{bottom:40%;left:-10%;animation:chipFloat1 6s ease-in-out infinite reverse;}
+
+@keyframes chipFloat1{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+@keyframes chipFloat2{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+/* ─── SECTIONS COMMON ───────────────────────── */
+section{padding:clamp(4rem,8vw,7rem) 5%;}
+.container{max-width:1100px;margin:0 auto;}
+
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--gl);color:var(--gd);
+  padding:.4rem 1rem;border-radius:100px;
+  font-size:.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.6px;
+  margin-bottom:1rem;
+}
+
+.section-title{
+  font-size:clamp(1.7rem,3.5vw,2.8rem);
+  font-weight:800;margin-bottom:1rem;
+}
+.section-sub{
+  font-size:1.05rem;color:var(--m);
+  max-width:580px;line-height:1.75;
+}
+.text-center{text-align:center;}
+.text-center .section-sub{margin:0 auto;}
+
+/* ─── PROBLEM SECTION ───────────────────────── */
+#problem{background:#fff;}
+
+.problem-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;margin-top:3.5rem;
+}
+
+.prob-card{
+  border-radius:24px;padding:2rem;
+  position:relative;overflow:hidden;
+}
+.prob-card.customer{
+  background:linear-gradient(135deg,#FFF9F0,#FEF3C7);
+  border:2px solid #FDE68A;
+}
+.prob-card.shopkeeper{
+  background:linear-gradient(135deg,#F5F3FF,#EDE9FE);
+  border:2px solid #DDD6FE;
+}
+
+.prob-who{
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:1.5rem;
+}
+.prob-avatar{
+  width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;flex-shrink:0;
+}
+.prob-avatar.c{background:#FEF3C7;}
+.prob-avatar.s{background:#EDE9FE;}
+
+.prob-who-label{font-size:.72rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.prob-who-label.c{color:#D97706;}
+.prob-who-label.s{color:#7C3AED;}
+.prob-who-name{font-size:1rem;font-weight:700;margin-top:.1rem;}
+
+.prob-scene{
+  background:#fff;border-radius:16px;
+  padding:1.25rem;margin-bottom:1rem;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+
+.thought{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.85rem;font-weight:500;color:var(--t);
+  background:#F3F4F6;padding:.5rem .9rem;
+  border-radius:10px;margin-bottom:.75rem;
+  animation:thoughtBob 3s ease-in-out infinite;
+}
+@keyframes thoughtBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+.person-walk{
+  font-size:2rem;display:inline-block;
+  animation:walk 2s ease-in-out infinite;
+}
+@keyframes walk{0%,100%{transform:translateX(0);}50%{transform:translateX(12px);}}
+
+.pain-list{display:flex;flex-direction:column;gap:.6rem;margin-top:.75rem;}
+
+.pain-item{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.65rem .9rem;border-radius:10px;
+  font-size:.84rem;font-weight:500;
+}
+.pain-item.red{background:#FEF2F2;color:#DC2626;}
+.pain-item.purple{background:#F5F3FF;color:#6D28D9;}
+.pain-item .pi{font-size:1.1rem;flex-shrink:0;}
+
+/* ─── SOLUTION SECTION ──────────────────────── */
+#solution{background:var(--bg);}
+
+.sol-timeline{
+  position:relative;padding-left:3.5rem;
+  margin-top:3.5rem;
+  display:flex;flex-direction:column;gap:0;
+}
+.sol-timeline::before{
+  content:'';position:absolute;
+  left:24px;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--gl),var(--g),var(--gl));
+}
+
+.sol-step{
+  position:relative;padding:2rem 0 2rem 2rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.sol-step.visible{opacity:1;transform:translateX(0);}
+
+.sol-icon{
+  position:absolute;left:-3.5rem;top:2rem;
+  width:52px;height:52px;border-radius:50%;
+  background:#fff;border:3px solid var(--g);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  box-shadow:0 4px 20px rgba(29,158,117,.2);
+  z-index:1;
+}
+
+.sol-num{
+  font-size:.72rem;font-weight:700;
+  color:var(--g);text-transform:uppercase;
+  letter-spacing:.8px;margin-bottom:.4rem;
+}
+.sol-title{
+  font-size:1.3rem;font-weight:800;margin-bottom:.6rem;
+}
+.sol-desc{
+  font-size:.95rem;color:var(--m);
+  line-height:1.7;margin-bottom:1rem;
+}
+
+.sol-tags{
+  display:flex;flex-wrap:wrap;gap:.5rem;
+}
+.sol-tag{
+  display:flex;align-items:center;gap:.4rem;
+  background:#fff;border:1px solid var(--b);
+  color:var(--gd);padding:.4rem .9rem;
+  border-radius:8px;font-size:.8rem;font-weight:500;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+/* ─── LOGO SHOWCASE ─────────────────────────── */
+#showcase{background:#fff;}
+
+.showcase-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;align-items:center;
+  margin-top:2rem;
+}
+
+.showcase-img-wrap{
+  position:relative;
+  display:flex;justify-content:center;
+}
+
+.showcase-img-bg{
+  position:absolute;inset:-30px;
+  background:radial-gradient(circle,var(--gl) 0%,transparent 70%);
+  border-radius:50%;
+}
+
+.showcase-img-wrap img{
+  width:min(320px,80%);height:auto;
+  position:relative;z-index:1;
+  filter:drop-shadow(0 16px 48px rgba(29,158,117,.2));
+  animation:showcaseFloat 5s ease-in-out infinite;
+}
+@keyframes showcaseFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+}
+
+.showcase-features{
+  display:flex;flex-direction:column;gap:1.25rem;
+}
+
+.sf-item{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1.25rem;background:var(--bg);
+  border-radius:16px;border:1px solid var(--b);
+  transition:transform .3s,box-shadow .3s;
+}
+.sf-item:hover{
+  transform:translateX(6px);
+  box-shadow:0 4px 20px var(--gx);
+  border-color:rgba(29,158,117,.3);
+}
+
+.sf-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--gl);display:flex;
+  align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+
+.sf-text h4{font-size:.95rem;font-weight:700;margin-bottom:.25rem;}
+.sf-text p{font-size:.85rem;color:var(--m);line-height:1.6;}
+
+/* ─── BEFORE AFTER ──────────────────────────── */
+#transform{
+  background:linear-gradient(160deg,var(--gd) 0%,#0a3d2e 100%);
+  position:relative;overflow:hidden;
+}
+#transform::before{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  background:rgba(255,255,255,.03);
+  top:-200px;right:-150px;
+}
+
+.transform-inner{
+  max-width:1100px;margin:0 auto;
+  position:relative;z-index:2;
+}
+
+.transform-inner .section-title{color:#fff;}
+.transform-inner .section-sub{color:rgba(255,255,255,.65);}
+
+.ba-wrap{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  gap:1.5rem;align-items:center;
+  margin:3rem 0;
+}
+
+.ba-card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:2rem 1.5rem;
+}
+.ba-card.after-card{
+  background:rgba(29,158,117,.2);
+  border-color:rgba(29,158,117,.4);
+}
+
+.ba-head{
+  font-size:.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.8px;
+  margin-bottom:1.25rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.ba-head.before-h{color:#FCA5A5;}
+.ba-head.after-h{color:#6EE7B7;}
+
+.ba-row{
+  display:flex;align-items:flex-start;gap:.75rem;
+  margin-bottom:.9rem;
+}
+.ba-icon{
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;
+  justify-content:center;font-size:.65rem;
+  flex-shrink:0;margin-top:1px;
+}
+.ba-icon.bad{background:#FEE2E2;color:#EF4444;}
+.ba-icon.good{background:#D1FAE5;color:#059669;}
+.ba-text{font-size:.88rem;color:rgba(255,255,255,.8);line-height:1.5;}
+
+.ba-arrow{
+  font-size:2.5rem;
+  color:rgba(255,255,255,.25);
+  flex-shrink:0;text-align:center;
+}
+
+.metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1.25rem;margin-top:2.5rem;
+}
+.metric{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:2rem 1.5rem;
+  text-align:center;
+}
+.metric-num{
+  font-family:'Syne',sans-serif;
+  font-size:2.5rem;font-weight:800;
+  color:#fff;margin-bottom:.25rem;
+}
+.metric-label{font-size:.85rem;color:rgba(255,255,255,.55);}
+
+/* ─── FOR WHO ───────────────────────────────── */
+#for-who{background:var(--bg);}
+
+.who-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;margin-top:3rem;
+}
+
+.who-card{
+  border-radius:24px;padding:2.5rem 2rem;
+  position:relative;overflow:hidden;
+}
+.who-card.c-card{
+  background:linear-gradient(135deg,#FFF9F0,#FEF3C7);
+  border:2px solid #FDE68A;
+}
+.who-card.s-card{
+  background:linear-gradient(135deg,var(--gl),#B7EDD6);
+  border:2px solid #6EE7B7;
+}
+
+.who-avatar{font-size:3.5rem;margin-bottom:1.25rem;display:block;}
+.who-card h3{font-size:1.4rem;font-weight:800;margin-bottom:.6rem;}
+.who-card>p{font-size:.92rem;color:var(--m);line-height:1.7;margin-bottom:1.5rem;}
+
+.who-list{display:flex;flex-direction:column;gap:.75rem;}
+.who-list li{
+  display:flex;align-items:center;gap:.75rem;
+  font-size:.9rem;font-weight:500;
+}
+.check{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--g);color:#fff;
+  display:flex;align-items:center;
+  justify-content:center;font-size:.65rem;
+  flex-shrink:0;
+}
+.c-card .check{background:#D97706;}
+
+/* ─── DOWNLOAD ──────────────────────────────── */
+#download{
+  background:linear-gradient(135deg,var(--g) 0%,var(--gd) 100%);
+  text-align:center;position:relative;overflow:hidden;
+}
+#download::before{
+  content:'';position:absolute;
+  width:500px;height:500px;border-radius:50%;
+  background:rgba(255,255,255,.04);
+  top:-200px;right:-150px;
+}
+#download::after{
+  content:'';position:absolute;
+  width:300px;height:300px;border-radius:50%;
+  background:rgba(255,255,255,.03);
+  bottom:-100px;left:-80px;
+}
+
+.dl-inner{
+  max-width:680px;margin:0 auto;
+  position:relative;z-index:2;
+}
+
+.dl-logo{
+  width:100px;height:auto;
+  margin:0 auto 2rem;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.3));
+  animation:showcaseFloat 4s ease-in-out infinite;
+}
+
+.dl-inner h2{
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:800;color:#fff;margin-bottom:1rem;
+}
+.dl-inner>p{
+  font-size:1.05rem;color:rgba(255,255,255,.8);
+  margin-bottom:2.5rem;line-height:1.7;
+}
+
+.dl-btns{
+  display:flex;gap:1rem;justify-content:center;
+  flex-wrap:wrap;margin-bottom:2rem;
+}
+
+.store-btn{
+  display:inline-flex;align-items:center;gap:.75rem;
+  background:#fff;color:var(--t);
+  padding:.9rem 1.8rem;border-radius:14px;
+  font-weight:600;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+  transition:transform .2s,box-shadow .2s;
+}
+.store-btn:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.2);}
+.store-icon{font-size:1.8rem;}
+.store-text small{display:block;font-size:.7rem;color:var(--m);}
+.store-text strong{font-size:1rem;color:var(--t);}
+
+.ios-note{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.9);
+  padding:.75rem 1.25rem;border-radius:12px;
+  font-size:.82rem;line-height:1.5;
+}
+
+/* ─── FOOTER ────────────────────────────────── */
+footer{
+  background:#0D1117;
+  color:rgba(255,255,255,.45);
+  padding:clamp(3rem,6vw,5rem) 5% 2rem;
+}
+
+.footer-inner{max-width:1100px;margin:0 auto;}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+
+.footer-brand img{
+  height:50px;width:auto;
+  margin-bottom:1rem;border-radius:10px;
+}
+.footer-brand p{font-size:.88rem;line-height:1.7;max-width:280px;}
+
+.footer-col h4{
+  font-family:'Syne',sans-serif;
+  font-size:.78rem;font-weight:700;
+  color:#fff;text-transform:uppercase;
+  letter-spacing:.6px;margin-bottom:1.1rem;
+}
+.footer-col a{
+  display:block;font-size:.88rem;
+  color:rgba(255,255,255,.42);
+  margin-bottom:.7rem;transition:color .2s;
+}
+.footer-col a:hover{color:var(--g);}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:1.5rem;
+  display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:.75rem;
+}
+.footer-bottom p{font-size:.82rem;}
+.footer-heart{color:#E24B4A;}
+
+/* ─── REVEAL ANIMATION ──────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.up{transform:translateY(28px);}
+.reveal.left{transform:translateX(-28px);}
+.reveal.right{transform:translateX(28px);}
+.reveal.visible{opacity:1;transform:translate(0);}
+.delay-1{transition-delay:.1s;}
+.delay-2{transition-delay:.2s;}
+.delay-3{transition-delay:.3s;}
+.delay-4{transition-delay:.4s;}
+
+/* ─── RESPONSIVE ────────────────────────────── */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;}
+  .hero-sub{margin:0 auto 2rem;}
+  .hero-btns{justify-content:center;}
+  .hero-visual{display:none;}
+
+  .problem-grid{grid-template-columns:1fr;}
+  .showcase-grid{grid-template-columns:1fr;}
+  .showcase-img-wrap{margin-bottom:2rem;}
+  .ba-wrap{grid-template-columns:1fr;gap:1rem;}
+  .ba-arrow{transform:rotate(90deg);}
+  .metrics{grid-template-columns:1fr;}
+  .who-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+}
+
+@media(max-width:640px){
+  #nav{padding:0 1.2rem;}
+  section{padding:3.5rem 1.2rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .hero-inner{padding:3.5rem 1.2rem;}
+  .metrics{grid-template-columns:1fr 1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+
+@media(max-width:400px){
+  .metrics{grid-template-columns:1fr;}
+  .hero-btns{flex-direction:column;}
+  .btn-white,.btn-glass{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ────────────────────────────────── -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <img src="assets\AppIcon.png" alt="NearStock"/>
+    <span class="nav-logo-text">NearStock</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#for-who">Who it's for</a></li>
+    <li><a href="#download" class="nav-btn">📱 Get the App</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#problem" onclick="closeMob()">😤 The Problem</a>
+  <a href="#solution" onclick="closeMob()">✨ Our Solution</a>
+  <a href="#showcase" onclick="closeMob()">🏪 Features</a>
+  <a href="#for-who" onclick="closeMob()">👥 Who it's for</a>
+  <a href="#download" onclick="closeMob()">📱 Download App</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────── -->
+<section class="hero">
+  <div class="hero-blob b1"></div>
+  <div class="hero-blob b2"></div>
+  <div class="hero-blob b3"></div>
+  <div class="hero-dots">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="hero-inner">
+    <!-- Text -->
+    <div class="hero-text">
+      <div class="hero-badge">🇮🇳 Made in India · Solving a real problem</div>
+      <h1>Stop wandering.<br/>Find products at<br/><em>nearby shops</em> now.</h1>
+      <p class="hero-sub">Search any product — instantly see which nearby shop has it in stock, at what price, and how far. Walk in. Buy. Done.</p>
+      <div class="hero-btns">
+        <a href="#download" class="btn-white">📱 Download App</a>
+        <a href="#problem" class="btn-glass">See the problem we solve →</a>
+      </div>
+    </div>
+
+    <!-- Visual -->
+    <div class="hero-visual">
+      <div class="chip chip1">
+        <div class="dot"></div>
+        Dettol found — 0.3 km
+      </div>
+      <div class="chip chip2">
+        <div class="dot"></div>
+        3 shops found nearby
+      </div>
+      <div class="chip chip3">
+        ✅ In stock · ₹85
+      </div>
+      <div class="hero-img-wrap">
+        <div class="hero-glow"></div>
+        <img src="assets/logo-transparent.png" alt="NearStock — Find Products Near You"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM SECTION ────────────────────── -->
+<section id="problem">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="badge">😤 The Real Problem</div>
+      <h2 class="section-title">Two people. Two problems.<br/>One solution.</h2>
+      <p class="section-sub">Every day millions of Indians face this — customers can't find products, local shopkeepers can't find customers.</p>
+    </div>
+
+    <div class="problem-grid">
+      <!-- Customer -->
+      <div class="prob-card customer reveal left">
+        <div class="prob-who">
+          <div class="prob-avatar c">🙋‍♂️</div>
+          <div>
+            <div class="prob-who-label c">The Customer</div>
+            <div class="prob-who-name">Roaming the market, wasting time</div>
+          </div>
+        </div>
+        <div class="prob-scene">
+          <div class="thought">🤔 Where can I find Paracetamol 650mg?</div>
+          <div><span class="person-walk">🚶‍♂️</span></div>
+          <div class="pain-list">
+            <div class="pain-item red"><span class="pi">🏪</span> Shop 1: "Nahi hai bhai, aage dekho"</div>
+            <div class="pain-item red"><span class="pi">🏬</span> Shop 2: "Kal aana, stock nahi"</div>
+            <div class="pain-item red"><span class="pi">😩</span> 45 minutes wasted, still no product!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shopkeeper -->
+      <div class="prob-card shopkeeper reveal right delay-2">
+        <div class="prob-who">
+          <div class="prob-avatar s">🏪</div>
+          <div>
+            <div class="prob-who-label s">The Shopkeeper</div>
+            <div class="prob-who-name">Full stock — but no one knows</div>
+          </div>
+        </div>
+        <div class="prob-scene">
+          <div class="thought">😟 My shop is full but customers go to big apps</div>
+          <div><span style="font-size:2rem;">🏪</span></div>
+          <div class="pain-list">
+            <div class="pain-item purple"><span class="pi">📦</span> 500+ products but zero online presence</div>
+            <div class="pain-item purple"><span class="pi">👻</span> Customers walking past — invisible online</div>
+            <div class="pain-item purple"><span class="pi">📉</span> Losing business to big delivery apps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION SECTION ───────────────────── -->
+<section id="solution">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="badge">✨ How NearStock Fixes This</div>
+      <h2 class="section-title">We bridge the gap between<br/>customers and local shops</h2>
+      <p class="section-sub">A simple platform where local shops list their products and customers instantly find what they need nearby.</p>
+    </div>
+
+    <div class="sol-timeline">
+      <div class="sol-step">
+        <div class="sol-icon">🔍</div>
+        <div class="sol-num">Step 01 — Customer</div>
+        <div class="sol-title">Search any product instantly</div>
+        <p class="sol-desc">Open NearStock, type any product — medicine, grocery, stationery, anything. Our app instantly searches all registered shops near your current location.</p>
+        <div class="sol-tags">
+          <div class="sol-tag">⚡ Instant results</div>
+          <div class="sol-tag">📍 Uses your location</div>
+          <div class="sol-tag">🔎 Any product</div>
+        </div>
+      </div>
+
+      <div class="sol-step">
+        <div class="sol-icon">📍</div>
+        <div class="sol-num">Step 02 — Results</div>
+        <div class="sol-title">See nearest shops with that product</div>
+        <p class="sol-desc">Results sorted by distance — closest first. See the shop name, exact distance, price, and real-time stock status. No guessing. No wasted trips.</p>
+        <div class="sol-tags">
+          <div class="sol-tag">🗺️ Distance shown</div>
+          <div class="sol-tag">💰 Price visible</div>
+          <div class="sol-tag">✅ Live stock status</div>
+        </div>
+      </div>
+
+      <div class="sol-step">
+        <div class="sol-icon">🚶</div>
+        <div class="sol-num">Step 03 — Customer</div>
+        <div class="sol-title">Walk in and buy — zero delivery charges</div>
+        <p class="sol-desc">One tap opens Google Maps with directions. Walk in, buy fresh. No delivery wait, no delivery charges, no minimum order. The old way — but smarter.</p>
+        <div class="sol-tags">
+          <div class="sol-tag">🗺️ Google Maps</div>
+          <div class="sol-tag">🆓 Zero delivery fee</div>
+          <div class="sol-tag">⏰ Get it today</div>
+        </div>
+      </div>
+
+      <div class="sol-step">
+        <div class="sol-icon">🏪</div>
+        <div class="sol-num">Step 04 — Shopkeeper</div>
+        <div class="sol-title">Register free → Get found → Grow sales</div>
+        <p class="sol-desc">Shopkeepers register in 5 minutes, list products from their phone, and instantly appear in search results when nearby customers look for their products.</p>
+        <div class="sol-tags">
+          <div class="sol-tag">🆓 Free forever</div>
+          <div class="sol-tag">📦 Easy listing</div>
+          <div class="sol-tag">📊 Analytics dashboard</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOGO SHOWCASE ──────────────────────── -->
+<section id="showcase">
+  <div class="container">
+    <div class="showcase-grid">
+      <div class="showcase-img-wrap reveal left">
+        <div class="showcase-img-bg"></div>
+        <img src="assets/branding-circle-badge.png" alt="NearStock"/>
+      </div>
+      <div class="reveal right">
+        <div class="badge">🌟 Why NearStock</div>
+        <h2 class="section-title">Built for real Indian life</h2>
+        <p class="section-sub" style="margin-bottom:1.5rem;">No fancy features you'll never use. Just a simple, fast solution to a problem every Indian faces every day.</p>
+        <div class="showcase-features">
+          <div class="sf-item">
+            <div class="sf-icon">📍</div>
+            <div class="sf-text">
+              <h4>Location-first search</h4>
+              <p>Always shows closest shops first. No travelling far for something available around the corner.</p>
+            </div>
+          </div>
+          <div class="sf-item">
+            <div class="sf-icon">⚡</div>
+            <div class="sf-text">
+              <h4>Real-time stock updates</h4>
+              <p>Shopkeepers update stock from their phone. What you see is what's actually available right now.</p>
+            </div>
+          </div>
+          <div class="sf-item">
+            <div class="sf-icon">🆓</div>
+            <div class="sf-text">
+              <h4>100% free — always</h4>
+              <p>Free for customers. Free for shopkeepers. No premium plans, no hidden charges, ever.</p>
+            </div>
+          </div>
+          <div class="sf-item">
+            <div class="sf-icon">🇮🇳</div>
+            <div class="sf-text">
+              <h4>Supporting local businesses</h4>
+              <p>We help the neighbourhood kirana survive and thrive in the age of big delivery apps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BEFORE AFTER ───────────────────────── -->
+<section id="transform">
+  <div class="transform-inner container">
+    <div class="reveal text-center">
+      <div class="badge" style="background:rgba(255,255,255,.12);color:#9FE1CB;border:1px solid rgba(255,255,255,.2);">🔄 The Transformation</div>
+      <h2 class="section-title">Life before vs after NearStock</h2>
+      <p class="section-sub" style="margin:0 auto 2rem;">We're not another delivery app. We're making your local market smarter and more accessible.</p>
+    </div>
+
+    <div class="ba-wrap reveal">
+      <div class="ba-card">
+        <div class="ba-head before-h">❌ Before NearStock</div>
+        <div class="ba-row"><div class="ba-icon bad">✗</div><div class="ba-text">Walk shop to shop hoping to find the product</div></div>
+        <div class="ba-row"><div class="ba-icon bad">✗</div><div class="ba-text">No idea which shop has what you need</div></div>
+        <div class="ba-row"><div class="ba-icon bad">✗</div><div class="ba-text">Local shops invisible — losing to delivery apps</div></div>
+        <div class="ba-row"><div class="ba-icon bad">✗</div><div class="ba-text">45+ minutes wasted finding one product</div></div>
+        <div class="ba-row"><div class="ba-icon bad">✗</div><div class="ba-text">Pay delivery charges for nearby items</div></div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-card after-card">
+        <div class="ba-head after-h">✅ With NearStock</div>
+        <div class="ba-row"><div class="ba-icon good">✓</div><div class="ba-text">Search once — see all nearby shops instantly</div></div>
+        <div class="ba-row"><div class="ba-icon good">✓</div><div class="ba-text">Know exact stock, price and distance upfront</div></div>
+        <div class="ba-row"><div class="ba-icon good">✓</div><div class="ba-text">Local shops get found by nearby customers</div></div>
+        <div class="ba-row"><div class="ba-icon good">✓</div><div class="ba-text">Find any product in under 30 seconds</div></div>
+        <div class="ba-row"><div class="ba-icon good">✓</div><div class="ba-text">Zero delivery fee — walk in and buy fresh</div></div>
+      </div>
+    </div>
+
+    <div class="metrics reveal">
+      <div class="metric">
+        <div class="metric-num">30s</div>
+        <div class="metric-label">To find any product nearby</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">₹0</div>
+        <div class="metric-label">Delivery charges — ever</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">Free</div>
+        <div class="metric-label">For shops and customers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOR WHO ────────────────────────────── -->
+<section id="for-who">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="badge">👥 Who it's for</div>
+      <h2 class="section-title">Built for every Indian</h2>
+      <p class="section-sub">Whether you shop at the local market or run a neighbourhood store — NearStock is for you.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-card c-card reveal left">
+        <span class="who-avatar">🙋‍♂️</span>
+        <h3>For Customers</h3>
+        <p>Anyone who shops at local markets and wants to stop wasting time searching for products shop to shop.</p>
+        <ul class="who-list">
+          <li><div class="check">✓</div> Search any product instantly</li>
+          <li><div class="check">✓</div> See nearest shop with that product</li>
+          <li><div class="check">✓</div> Compare prices across shops</li>
+          <li><div class="check">✓</div> Save favourites for next time</li>
+          <li><div class="check">✓</div> Get directions in one tap</li>
+        </ul>
+      </div>
+      <div class="who-card s-card reveal right delay-2">
+        <span class="who-avatar">🏪</span>
+        <h3>For Shopkeepers</h3>
+        <p>Local shop owners who want to get discovered by nearby customers and grow walk-in sales — without any tech skills.</p>
+        <ul class="who-list">
+          <li><div class="check">✓</div> Register your shop in 5 minutes</li>
+          <li><div class="check">✓</div> List unlimited products free</li>
+          <li><div class="check">✓</div> Update stock from your phone</li>
+          <li><div class="check">✓</div> Get found by nearby customers</li>
+          <li><div class="check">✓</div> Track analytics daily</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DOWNLOAD ───────────────────────────── -->
+<section id="download">
+  <div class="dl-inner reveal">
+    <img class="dl-logo" src="assets/logo-transparent.png" alt="NearStock"/>
+    <div class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);margin-bottom:1rem;">📱 Get Started Today</div>
+    <h2>Download NearStock.<br/>Find products in seconds.</h2>
+    <p>Free for everyone. No delivery charges. Supports local shops.</p>
+    <div class="dl-btns">
+      <a href="#" class="store-btn">
+        <div class="store-icon">🤖</div>
+        <div class="store-text">
+          <small>Get it on</small>
+          <strong>Google Play</strong>
+        </div>
+      </a>
+    </div>
+    <div class="ios-note">
+      🍎 iPhone users — open nearstock.in in Safari → tap Share → "Add to Home Screen"
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/NearStocklogo.png" alt="NearStock" style="height:60px;width:auto;border-radius:8px;margin-bottom:1rem;"/>
+        <p>Connecting customers with local shops across India. Find what you need, right around the corner.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#problem">The Problem</a>
+        <a href="#solution">Our Solution</a>
+        <a href="#showcase">Features</a>
+        <a href="#for-who">Who it's for</a>
+        <a href="#download">Download App</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal & Support</h4>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="mailto:support@nearstock.in">support@nearstock.in</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NearStock · All rights reserved.</p>
+      <p>Made with <span class="footer-heart">❤️</span> in India</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
+});
+
+// Hamburger
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobile-menu');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+});
+function closeMob(){
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+}
+document.addEventListener('click',e=>{
+  if(!mob.contains(e.target)&&!ham.contains(e.target)){
+    ham.classList.remove('open');
+    mob.classList.remove('open');
+  }
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.08});
+
+document.querySelectorAll('.reveal,.sol-step').forEach(el=>obs.observe(el));
+
+// Service worker
+if('serviceWorker'in navigator){
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
+}
+</script>
+</body>
+</html>
