@@ -1,0 +1,13 @@
+# NearStock — robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://nearstock.in/sitemap.xml
+
+# Disallow admin or private paths if any
+Disallow: /api/
+Disallow: /admin/
+
+# Crawl delay (optional — 1 second)
+Crawl-delay: 1

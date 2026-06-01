@@ -1,7 +1,7 @@
 {
-  "name": "NearStock — Find Products Near You",
+  "name": "NearStock \u2014 Find Products Near You",
   "short_name": "NearStock",
-  "description": "Find products at nearby shops instantly",
+  "description": "NearStock \u2014 Find products at nearby local shops instantly. Free hyperlocal shop finder app for India. Search medicine, grocery, hardware and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#085041",
@@ -26,6 +26,31 @@
       "type": "image/png"
     }
   ],
-  "categories": ["shopping","lifestyle"],
-  "lang": "en-IN"
+  "categories": [
+    "shopping",
+    "lifestyle"
+  ],
+  "lang": "en-IN",
+  "screenshots": [
+    {
+      "src": "assets/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Search products near you"
+    },
+    {
+      "src": "assets/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Find nearby shops"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=in.nearstock.nearstock",
+      "id": "in.nearstock.nearstock"
+    }
+  ],
+  "prefer_related_applications": false
 }
