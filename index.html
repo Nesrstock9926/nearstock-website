@@ -126,7 +126,7 @@
           "name": "Is NearStock free to use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, NearStock is completely free for both customers and shopkeepers. Customers can search for products for free, and shopkeepers can list their shop and products for free."
+            "text": "NearStock is free for customers to search and discover products, always. Shopkeepers can join and list their shop and products at no cost to get started."
           }
         },
         {
@@ -142,7 +142,7 @@
           "name": "How can shopkeepers list their shop on NearStock?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Shopkeepers can download the NearStock app, register with their mobile number, select the Shopkeeper role, and register their shop with location, category, and product listings — all for free."
+            "text": "Shopkeepers can download the NearStock app, register with their mobile number, select the Shopkeeper role, and register their shop with location, category, and product listings — at no cost to get started."
           }
         },
         {
@@ -407,6 +407,48 @@ ul{list-style:none;}
 
 @keyframes chipFloat1{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 @keyframes chipFloat2{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+/* ─── FEEDBACK SECTION ──────────────────────── */
+#feedback{background:var(--gl);}
+.fb-card{
+  max-width:640px;margin:0 auto;
+  background:var(--w);border-radius:var(--r);
+  padding:clamp(1.75rem,4vw,3rem);
+  box-shadow:var(--shadow);
+}
+.fb-role{display:flex;gap:.75rem;margin:1.25rem 0 1.5rem;}
+.fb-role-btn{
+  flex:1;padding:.85rem;border-radius:12px;
+  border:2px solid var(--b);background:var(--w);
+  font-weight:600;font-size:.95rem;color:var(--m);
+  cursor:pointer;transition:all .2s;
+}
+.fb-role-btn.active{border-color:var(--g);background:var(--gl);color:var(--gd);}
+.fb-textarea{
+  width:100%;min-height:120px;padding:1rem;
+  border:2px solid var(--b);border-radius:12px;
+  font-family:inherit;font-size:.95rem;color:var(--t);
+  resize:vertical;transition:border-color .2s;
+}
+.fb-textarea:focus{outline:none;border-color:var(--g);}
+.fb-submit{
+  margin-top:1.25rem;width:100%;
+  background:var(--g);color:#fff;border:none;
+  padding:.9rem;border-radius:12px;
+  font-size:1rem;font-weight:700;cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+.fb-submit:hover{background:var(--gd);transform:translateY(-1px);}
+.fb-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.fb-success{
+  display:none;text-align:center;padding:1.5rem 0;
+}
+.fb-success.show{display:block;}
+.fb-success .fb-tick{font-size:2.5rem;margin-bottom:.5rem;}
+.fb-error{
+  display:none;color:#DC2626;font-size:.85rem;margin-top:.6rem;
+}
+.fb-error.show{display:block;}
 
 /* ─── SECTIONS COMMON ───────────────────────── */
 section{padding:clamp(4rem,8vw,7rem) 5%;}
@@ -985,12 +1027,12 @@ footer{
           </div>
         </div>
         <div class="prob-scene">
-          <div class="thought">🤔 Where can I find Paracetamol 650mg?</div>
+          <div class="thought">🤔 Pampers New Born size kahan milega?</div>
           <div><span class="person-walk">🚶‍♂️</span></div>
           <div class="pain-list">
-            <div class="pain-item red"><span class="pi">🏪</span> Shop 1: "Nahi hai bhai, aage dekho"</div>
-            <div class="pain-item red"><span class="pi">🏬</span> Shop 2: "Kal aana, stock nahi"</div>
-            <div class="pain-item red"><span class="pi">😩</span> 45 minutes wasted, still no product!</div>
+            <div class="pain-item red"><span class="pi">🏪</span> Shop 1: "New Born nahi hai, Small hi hai"</div>
+            <div class="pain-item red"><span class="pi">🏬</span> Shop 2: "Stock khatam, kal aana"</div>
+            <div class="pain-item red"><span class="pi">😩</span> Raat ko baby ke liye bhi nahi mila!</div>
           </div>
         </div>
       </div>
@@ -1070,7 +1112,7 @@ footer{
         <div class="sol-title">Register free → Get found → Grow sales</div>
         <p class="sol-desc">Shopkeepers register in 5 minutes, list products from their phone, and instantly appear in search results when nearby customers look for their products.</p>
         <div class="sol-tags">
-          <div class="sol-tag">🆓 Free forever</div>
+          <div class="sol-tag">🆓 Free to join</div>
           <div class="sol-tag">📦 Easy listing</div>
           <div class="sol-tag">📊 Analytics dashboard</div>
         </div>
@@ -1109,8 +1151,8 @@ footer{
           <div class="sf-item">
             <div class="sf-icon">🆓</div>
             <div class="sf-text">
-              <h4>100% free — always</h4>
-              <p>Free for customers. Free for shopkeepers. No premium plans, no hidden charges, ever.</p>
+              <h4>Free to get started</h4>
+              <p>Always free for customers to search. Free for shopkeepers to join and list their shop — no fees to get started.</p>
             </div>
           </div>
           <div class="sf-item">
@@ -1166,7 +1208,7 @@ footer{
       </div>
       <div class="metric">
         <div class="metric-num">Free</div>
-        <div class="metric-label">For shops and customers</div>
+        <div class="metric-label">To get started</div>
       </div>
     </div>
   </div>
@@ -1199,7 +1241,7 @@ footer{
         <p>Local shop owners who want to get discovered by nearby customers and grow walk-in sales — without any tech skills.</p>
         <ul class="who-list">
           <li><div class="check">✓</div> Register your shop in 5 minutes</li>
-          <li><div class="check">✓</div> List unlimited products free</li>
+          <li><div class="check">✓</div> List unlimited products</li>
           <li><div class="check">✓</div> Update stock from your phone</li>
           <li><div class="check">✓</div> Get found by nearby customers</li>
           <li><div class="check">✓</div> Track analytics daily</li>
@@ -1215,7 +1257,7 @@ footer{
     <img class="dl-logo" src="assets/logo-transparent.png" alt="NearStock — Find Products at Nearby Local Shops"/>
     <div class="badge" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);margin-bottom:1rem;">📱 Get Started Today</div>
     <h2>Download NearStock.<br/>Find products in seconds.</h2>
-    <p>Free for everyone. No delivery charges. Supports local shops.</p>
+    <p>Free to download. No delivery charges. Supports local shops.</p>
     <div class="dl-btns">
       <a href="#" class="store-btn">
         <div class="store-icon">🤖</div>
@@ -1227,6 +1269,44 @@ footer{
     </div>
     <div class="ios-note">
       🍎 iPhone users — open nearstock.in in Safari → tap Share → "Add to Home Screen"
+    </div>
+  </div>
+</section>
+
+<!-- ── FEEDBACK SECTION ──────────────────────── -->
+<section id="feedback">
+  <div class="container">
+    <div class="reveal text-center">
+      <div class="badge">💬 Launch Se Pehle</div>
+      <h2 class="section-title">Aapki Raay Chahiye</h2>
+      <p class="section-sub" style="margin:0 auto;">NearStock abhi bann raha hai — batao yeh idea aapke kaam ka hai ya nahi. Chahe aap customer ho ya shopkeeper.</p>
+    </div>
+
+    <div class="fb-card reveal">
+      <form id="fbForm">
+        <input type="hidden" name="access_key" value="4c25da77-ba8c-4bbb-ad45-3ae116b6f652"/>
+        <input type="hidden" name="subject" value="New NearStock Feedback"/>
+        <input type="hidden" name="from_name" value="NearStock Website"/>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off"/>
+        <input type="hidden" name="role" id="fbRoleValue" value="Customer"/>
+
+        <div style="font-weight:700;color:var(--t);margin-bottom:.6rem;">Main hu:</div>
+        <div class="fb-role">
+          <button type="button" class="fb-role-btn active" data-role="Customer">🙋‍♂️ Customer</button>
+          <button type="button" class="fb-role-btn" data-role="Shopkeeper">🏪 Shopkeeper</button>
+        </div>
+
+        <textarea class="fb-textarea" name="message" placeholder="Kya yeh app aapki problem solve karega? Koi suggestion?" required></textarea>
+        <div class="fb-error" id="fbError">Kuch likhna zaroori hai, dobara try karo.</div>
+
+        <button type="submit" class="fb-submit" id="fbSubmitBtn">Bhejo 🚀</button>
+      </form>
+
+      <div class="fb-success" id="fbSuccess">
+        <div class="fb-tick">✅</div>
+        <div style="font-weight:700;font-size:1.1rem;color:var(--gd);">Dhanyavaad!</div>
+        <p style="color:var(--m);margin-top:.4rem;">Aapka feedback humein mil gaya 🙏</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1250,7 +1330,7 @@ footer{
       <div itemprop="mainEntity" itemscope itemtype="https://schema.org/Question" style="background:white;border-radius:16px;padding:24px;margin-bottom:16px;border:1px solid #E5E7EB;">
         <h3 itemprop="name" style="font-size:16px;color:#085041;margin-bottom:8px;">Is NearStock free for customers and shopkeepers?</h3>
         <div itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="font-size:14px;color:#6B7280;line-height:1.7;">Yes! NearStock is 100% free for both customers and shopkeepers. Customers search and discover products for free. Shopkeepers list their shop, add products, and get discovered — all for free. No subscription, no commission.</p>
+          <p itemprop="text" style="font-size:14px;color:#6B7280;line-height:1.7;">NearStock is always free for customers to search and discover products. Shopkeepers can join and list their shop and products at no cost to get started.</p>
         </div>
       </div>
 
@@ -1294,6 +1374,7 @@ footer{
         <a href="#showcase">Features</a>
         <a href="#for-who">Who it's for</a>
         <a href="#download">Download App</a>
+        <a href="#feedback">Give Feedback</a>
       </div>
       <div class="footer-col">
         <h4>Legal & Support</h4>
@@ -1345,6 +1426,56 @@ const obs=new IntersectionObserver((entries)=>{
 },{threshold:0.08});
 
 document.querySelectorAll('.reveal,.sol-step').forEach(el=>obs.observe(el));
+
+// Feedback form
+const fbForm=document.getElementById('fbForm');
+if(fbForm){
+  const fbRoleBtns=fbForm.querySelectorAll('.fb-role-btn');
+  const fbRoleValue=document.getElementById('fbRoleValue');
+  fbRoleBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      fbRoleBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      fbRoleValue.value=btn.dataset.role;
+    });
+  });
+
+  fbForm.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const textarea=fbForm.querySelector('.fb-textarea');
+    const fbError=document.getElementById('fbError');
+    const fbSubmitBtn=document.getElementById('fbSubmitBtn');
+    if(!textarea.value.trim()){
+      fbError.classList.add('show');
+      return;
+    }
+    fbError.classList.remove('show');
+    fbSubmitBtn.disabled=true;
+    fbSubmitBtn.textContent='Bhej rahe hain...';
+    try{
+      const res=await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json',Accept:'application/json'},
+        body:JSON.stringify(Object.fromEntries(new FormData(fbForm)))
+      });
+      const data=await res.json();
+      if(data.success){
+        fbForm.style.display='none';
+        document.getElementById('fbSuccess').classList.add('show');
+      }else{
+        fbError.textContent='Kuch gadbad ho gayi, dobara try karo.';
+        fbError.classList.add('show');
+        fbSubmitBtn.disabled=false;
+        fbSubmitBtn.textContent='Bhejo 🚀';
+      }
+    }catch(err){
+      fbError.textContent='Internet check karo aur dobara try karo.';
+      fbError.classList.add('show');
+      fbSubmitBtn.disabled=false;
+      fbSubmitBtn.textContent='Bhejo 🚀';
+    }
+  });
+}
 
 // Service worker
 if('serviceWorker'in navigator){
